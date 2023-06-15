@@ -39,7 +39,7 @@ function Profile() {
           firstName: res.firstName,
           lastName: res.lastName,
           university: res.university,
-          confirmed: res.confirmed
+          confirmed: res.confirmed,
         });
       })
       .catch((error) => {
@@ -86,21 +86,22 @@ function Profile() {
   return (
     <div className='profile-overlay'>
       <div className='profile-box'>
-      <span className="close-button" onClick={closeComp}> &times;</span>
-      {profileData.confirmed == 1 ? (
+        <span className='close-button' onClick={closeComp}>
+          {' '}
+          &times;
+        </span>
         <>
-          <h1>Welcome back {profileData.firstName} {profileData.lastName}!</h1>
-          {/** <p>University: {profileData.university}</p>*/}
-          <button className='edit-profile' onClick={handleEditProfileClick}>Edit Profile</button>
-          {showEditProfile && <EditProfile onClose={handleEditProfileClose}/>}
+          <h1>
+            Welcome back {profileData.firstName} {profileData.lastName}!
+          </h1>
+          <p>University: {profileData.university}</p>
+          <button className='edit-profile' onClick={handleEditProfileClick}>
+            Edit Profile
+          </button>
+          {showEditProfile && <EditProfile onClose={handleEditProfileClose} />}
           <AddressList addressData={addressData} />
           <Schedule />
         </>
-      ) : (
-        <>
-          <p>Plase confirm your email to access your profile.</p>
-        </>
-      )}
       </div>
     </div>
   );
