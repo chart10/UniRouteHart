@@ -2,7 +2,7 @@ import React from 'react';
 import './Landing.css';
 import img from './images/PeopleDriving.jpg';
 import img2 from './images/Directions Example.PNG';
-import img3 from './images/profileExample.png';
+import img3 from './images/ProfileExample.png';
 import chandler from './images/ssbsk.jpg';
 import eric from './images/suavearabic.jpg';
 import christian from './images/christian.jpg';

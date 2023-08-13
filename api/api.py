@@ -82,30 +82,30 @@ def register():
 
 
 ## EMAIL VARIFICATION FUNCS
-def generate_confirmation_token(email):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
+# def generate_confirmation_token(email):
+#     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+#     return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
 
-def confirm_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    try:
-        email = serializer.loads(
-            token,
-            salt=app.config['SECURITY_PASSWORD_SALT'],
-            max_age=expiration
-        )
-    except:
-        return False
-    return email
+# def confirm_token(token, expiration=3600):
+#     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+#     try:
+#         email = serializer.loads(
+#             token,
+#             salt=app.config['SECURITY_PASSWORD_SALT'],
+#             max_age=expiration
+#         )
+#     except:
+#         return False
+#     return email
 
-def send_email(to, subject, template):
-    msg = Message(
-        subject,
-        recipients=[to],
-        html=template,
-        sender=app.config['MAIL_DEFAULT_SENDER']
-    )
-    mail.send(msg)
+# def send_email(to, subject, template):
+#     msg = Message(
+#         subject,
+#         recipients=[to],
+#         html=template,
+#         sender=app.config['MAIL_DEFAULT_SENDER']
+#     )
+#     mail.send(msg)
 
 ## ACCOUNT / SESSION MANAGEMENT
 
@@ -135,23 +135,23 @@ def add_user():
     if user:
         return 'There is already an account with that username.'
     # Hash the user's password
-    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    # hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # 3) Use cursor.execute() to run a line of MySQL code
-    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''',
-                (username,hashed_password,confirmed,date,email,university,first_name,last_name,))
+    cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
+                (username,hashed_password,email,university,first_name,last_name,))
 
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
     # 5) Close the cursor
     cursor.close()
 
-    token = generate_confirmation_token(email)
-    confirm_url = url_for('confirm_email', token=token, _external=True)
-    print(confirm_url)
-    html = render_template('active.html', confirm_url=confirm_url)
-    subject = "Please confirm your Email"
-    send_email(email, subject, html)
-    flash('A confirmation email has been sent via email.')
+    # token = generate_confirmation_token(email)
+    # confirm_url = url_for('confirm_email', token=token, _external=True)
+    # print(confirm_url)
+    # html = render_template('active.html', confirm_url=confirm_url)
+    # subject = "Please confirm your Email"
+    # send_email(email, subject, html)
+    # flash('A confirmation email has been sent via email.')
 
     return 'successfully added user to database'
 
@@ -204,7 +204,8 @@ def create_token():
 
     # if the user name and pass are not in db, return wrong username and pass
     # case: if user comes as none
-    if user is None or not bcrypt.check_password_hash(user['password'], password):
+    if user is None:
+        # or not bcrypt.check_password_hash(user['password'], password)
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
     access_token = create_access_token(identity=username)
@@ -281,7 +282,7 @@ def get_profile():
         'firstName': user['firstName'],
         'lastName': user['lastName'],
         'university': user['university'],
-        'confirmed': user['confirmed']
+        # 'confirmed': user['confirmed']
     }
     return profile_data
 
