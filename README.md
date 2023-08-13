@@ -20,7 +20,7 @@ $ python3 -m venv venv
 $ source venv/bin/activate
 ```
 
-3. Activate your python environmet and type in this install command: `pip install -r requirementsFlask.txt`
+3. Activate your python environmet and type in this install command: `pip install -r requirements.txt`
 4. In your second terminal make sure you have node and npm installed.
 5. To install your React modules use the following command:
    `npm install react react-icons react-router-dom axios @react-google-maps/api`
