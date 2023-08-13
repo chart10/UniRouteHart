@@ -1,5 +1,0 @@
-react
-react-icons
-react-router-dom
-axios
-@react-google-maps/api
