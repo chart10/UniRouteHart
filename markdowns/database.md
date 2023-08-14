@@ -12,70 +12,7 @@ Our database will be used to record user profiles, their related tables, and the
 
 ## Code
 
-To initialize the database, the following code must be run:
+To initialize the database:
 
-```
-CREATE DATABASE UniRouteDB;
-USE UniRouteDB;
-CREATE TABLE users (
-	username varchar(30) NOT NULL,
-    password varchar(80) NOT NULL,
-    email varchar(30) NOT NULL,
-    university varchar(30),
-    firstName varchar(30),
-    lastName varchar(30),
-    PRIMARY KEY (username)
-);
-CREATE TABLE addresses (
-	username varchar(30) NOT NULL,
-    addressID int UNIQUE AUTO_INCREMENT NOT NULL,
-    address varchar(40) NOT NULL,
-    addressType varchar(15),
-    PRIMARY KEY (username, addressID),
-    FOREIGN KEY (username) REFERENCES users(username)
-		  ON DELETE CASCADE
-      ON UPDATE CASCADE
-);
-CREATE TABLE phoneNumbers (
-	username varchar(30) NOT NULL,
-    phoneID int UNIQUE AUTO_INCREMENT NOT NULL,
-    phoneNumber varchar(20) NOT NULL,
-    phoneType varchar(15),
-    PRIMARY KEY (username, phoneID),
-    FOREIGN KEY (username) REFERENCES users(username)
-		  ON DELETE CASCADE
-      ON UPDATE CASCADE
-);
-CREATE TABLE recentRoutes (
-	username varchar(30) NOT NULL,
-    routeID int UNIQUE AUTO_INCREMENT NOT NULL,
-    departAddress varchar(40),
-    arriveAddress varchar(40) NOT NULL,
-    PRIMARY KEY (username, routeID),
-    dateTime datetime,
-    FOREIGN KEY (username) REFERENCES users(username)
-		  ON DELETE CASCADE
-      ON UPDATE CASCADE
-);
-CREATE TABLE scheduledRoutes (
-	username varchar(30) NOT NULL,
-    routeID int UNIQUE AUTO_INCREMENT NOT NULL,
-    departArrive enum('DEPART', 'ARRIVE'),
-    timeOfDay time,
-    departAddress varchar(40),
-    arriveAddress varchar(40) NOT NULL,
-    PRIMARY KEY (username, routeID),
-    FOREIGN KEY (username) REFERENCES users(username)
-		  ON DELETE CASCADE
-      ON UPDATE CASCADE
-);
-CREATE TABLE scheduledRoutesDayOfWeek (
-	routeID int NOT NULL,
-    subID int UNIQUE AUTO_INCREMENT NOT NULL,
-    dayOfWeek tinyint NOT NULL,
-    PRIMARY KEY (routeID, subID),
-    FOREIGN KEY (routeID) REFERENCES scheduledRoutes(routeID)
-		ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-```
+- Sign into MySQL: `mysql -u root -p`
+- From the project root directory run: `source ./markdowns/UniRouteDB.sql`
