@@ -17,6 +17,7 @@ from flask import flash
 from flask_mail import Message
 from flask_mail import Mail
 from flask import url_for
+from utils import userUtils as UserUtils
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -135,8 +136,7 @@ def add_user():
     if user:
         return 'There is already an account with that username.'
     # Hash the user's password
-    hashed_password = bcrypt.generate_password_hash(
-        password).decode('utf-8')[0:20]
+    hashed_password = UserUtils.hash_password(password, bcrypt)
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
                    (username, hashed_password, email, university, first_name, last_name,))
@@ -200,16 +200,13 @@ def create_token():
     # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    hashed_password = bcrypt.generate_password_hash(
-        password).decode('utf-8')[0:20]
+    cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
 
-    cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s',
-                   (username, hashed_password,))
     user = cursor.fetchone()
 
     # if the user name and pass are not in db, return wrong username and pass
     # case: if user comes as none
-    if user is None:
+    if user is None or not UserUtils.is_password_correct(user, password, bcrypt):
         # or not bcrypt.check_password_hash(user['password'], password)
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
