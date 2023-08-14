@@ -19,7 +19,7 @@ CREATE DATABASE UniRouteDB;
 USE UniRouteDB;
 CREATE TABLE users (
 	username varchar(30) NOT NULL,
-    password varchar(20) UNIQUE,
+    password varchar(80) NOT NULL,
     email varchar(30) NOT NULL,
     university varchar(30),
     firstName varchar(30),

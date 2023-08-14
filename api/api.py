@@ -17,12 +17,13 @@ from flask import flash
 from flask_mail import Message
 from flask_mail import Mail
 from flask import url_for
+from utils import userUtils as UserUtils
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
 
-## TOKEN CONFIG
+# TOKEN CONFIG
 
 app.config["JWT_SECRET_KEY"] = "super-secret-thingy-that-is-not-best-practice(CHANGE!)"
 jwt = JWTManager(app)
@@ -38,7 +39,7 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
 app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
-#app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL')
+# app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL')
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
@@ -81,7 +82,7 @@ def register():
     return render_template('index.html')
 
 
-## EMAIL VARIFICATION FUNCS
+# EMAIL VARIFICATION FUNCS
 # def generate_confirmation_token(email):
 #     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 #     return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
@@ -107,7 +108,7 @@ def register():
 #     )
 #     mail.send(msg)
 
-## ACCOUNT / SESSION MANAGEMENT
+# ACCOUNT / SESSION MANAGEMENT
 
 # Add user information to the database
 # Basics on how to communicate with MySQL in 5 easy steps
@@ -135,10 +136,10 @@ def add_user():
     if user:
         return 'There is already an account with that username.'
     # Hash the user's password
-    # hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    hashed_password = UserUtils.hash_password(password, bcrypt)
     # 3) Use cursor.execute() to run a line of MySQL code
     cursor.execute('''INSERT INTO users VALUES(%s,%s,%s,%s,%s,%s)''',
-                (username,hashed_password,email,university,first_name,last_name,))
+                   (username, hashed_password, email, university, first_name, last_name,))
 
     # 4) Commit the change to the MySQL database
     mysql.connection.commit()
@@ -154,6 +155,7 @@ def add_user():
     # flash('A confirmation email has been sent via email.')
 
     return 'successfully added user to database'
+
 
 @app.route("/confirm/<token>")
 def confirm_email(token):
@@ -198,13 +200,13 @@ def create_token():
     # DictCursor allows you to select colum  via user['column_name']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute('SELECT * FROM users WHERE username = %s',
-                   (username,))
+    cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+
     user = cursor.fetchone()
 
     # if the user name and pass are not in db, return wrong username and pass
     # case: if user comes as none
-    if user is None:
+    if user is None or not UserUtils.is_password_correct(user, password, bcrypt):
         # or not bcrypt.check_password_hash(user['password'], password)
         return {"msg": "Wrong username or password"}, 401
     # create accesstoken if succsesful
@@ -449,6 +451,7 @@ def remove_scheduled_directions():
     cursor.close()
     return "Scheduled directions successfully removed"
 
+
 @app.route("/edit_profile", methods=["POST"])
 @jwt_required()
 def edit_profile():
@@ -464,8 +467,8 @@ def edit_profile():
     university = request.json['university']
 
     cursor.execute('UPDATE users SET firstName = %s, lastName = %s, university = %s WHERE username = %s',
-                    (first_name, last_name, university, current_user))
-    
+                   (first_name, last_name, university, current_user))
+
     cursor.connection.commit()
     cursor.close()
 
