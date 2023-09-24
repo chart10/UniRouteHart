@@ -1,4 +1,4 @@
-# Uniroute: Map Routing System for Students
+# UniRoute: Map Routing System for Students
 
 The project has been created by: Chandler Dugan, Christian Hart, and Eric Rivas
 
@@ -20,7 +20,7 @@ $ python3 -m venv venv
 $ source venv/bin/activate
 ```
 
-3. Activate your python environmet and type in this install command: `pip install -r requirements.txt`
+3. Activate your python environment and type in this install command: `pip install -r api/requirements.txt`
 4. In your second terminal make sure you have node and npm installed.
 5. To install your React modules use the following command:
    `npm install react react-icons react-router-dom axios @react-google-maps/api`
@@ -29,7 +29,7 @@ $ source venv/bin/activate
 
 ## When using the app
 
-From the main page you can enter any address or location into the origin and destination inputs to get a route to anywhere you would like. You can also choose your prefered mode of travel from the dropdown menu.
+From the main page you can enter any address or location into the origin and destination inputs to get a route to anywhere you would like. You can also choose your preferred mode of travel from the dropdown menu.
 
 For a quick example of the feature set we have implemented so far, select 'Login' and enter 'student' and 'uniroute' as your username and password. This will allow you to use the addresses already saved to this account to create a new route.
 
@@ -41,4 +41,4 @@ But to use the full features of the app, we encourage you to register your own a
 
 - Docker to create an image of the Flask server with frontend build in Flask directory
 
-- used `fly launch` to deplay
+- used `fly launch` to deploy
