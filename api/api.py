@@ -19,6 +19,10 @@ from flask_mail import Mail
 from flask import url_for
 from utils import userUtils as UserUtils
 
+print(os.getenv('MYSQL_HOST'))
+print(os.getenv('MYSQL_USER'))
+print(os.getenv('MYSQL_PASSWORD'))
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 

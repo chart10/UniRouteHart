@@ -14,7 +14,7 @@ COPY api/requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 COPY api .
-COPY .env .env
+COPY .env-prod .env
 
 # RUN python -m venv venv
 # RUN source venv/bin/activate

@@ -20,12 +20,13 @@ $ python3 -m venv venv
 $ source venv/bin/activate
 ```
 
-3. Activate your python environment and type in this install command: `pip install -r api/requirements.txt`
+3. Activate your python environment and type in this install command: `pip install -r requirements.txt`
 4. In your second terminal make sure you have node and npm installed.
 5. To install your React modules use the following command:
-   `npm install react react-icons react-router-dom axios @react-google-maps/api`
-6. Make sure to add the .env file that was emailed. It will include not only the google maps API key, but also the credentials to access the UniRoute database.
-7. In your your python environment in first terminal, start your backend with `flask run`, and in the second terminal start up your React frontend with `npm start`.
+   `npm install`
+6. Run: `export NODE_OPTIONS=--openssl-legacy-provider`
+7. Make sure to add the .env file that was emailed. It will include not only the google maps API key, but also the credentials to access the UniRoute database.
+8. In your your python environment in first terminal, start your backend with `flask run`, and in the second terminal start up your React frontend with `npm start`.
 
 ## When using the app
 
@@ -41,4 +42,4 @@ But to use the full features of the app, we encourage you to register your own a
 
 - Docker to create an image of the Flask server with frontend build in Flask directory
 
-- used `fly launch` to deploy
+- used `fly deploy` to deploy
