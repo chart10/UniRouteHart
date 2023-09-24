@@ -4,7 +4,8 @@ FROM python:3.8-slim-buster
 
 RUN apt-get update
 RUN apt-get install -y gcc
-RUN apt-get install -y default-libmysqlclient-dev
+RUN apt-get install -y pkg-config
+RUN apt-get install -y python3-dev default-libmysqlclient-dev build-essential
 # This might make MySQL work :<
 
 WORKDIR /python-docker
