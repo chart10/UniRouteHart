@@ -19,6 +19,8 @@ mylog.log
 
 # production
 /build
+api/static
+api/templates
 
 # misc
 .DS_Store
