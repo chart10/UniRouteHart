@@ -47,6 +47,8 @@ app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
+print("Connecting to MySQL DB at " + os.getenv('MYSQL_HOST') + " for user " + os.getenv('MYSQL_USER'))
+
 mail = Mail(app)
 mysql = MySQL(app)
 

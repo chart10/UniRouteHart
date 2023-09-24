@@ -1,9 +1,14 @@
-# fly.toml file generated for uniroute on 2023-04-07T18:56:32-04:00
+# fly.toml app configuration file generated for uniroute on 2023-09-24T14:46:02-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "uniroute"
-kill_signal = "SIGINT"
-kill_timeout = 5
 primary_region = "iad"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+
+[build]
 
 [[services]]
   protocol = "tcp"
