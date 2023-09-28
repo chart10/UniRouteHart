@@ -38,8 +38,6 @@ But to use the full features of the app, we encourage you to register your own a
 
 ## Deployment
 
-- Run npm run build to get a production build of the frontend
+- When ready to deploy the repository use the command: `npm run deploy`
 
-- Docker to create an image of the Flask server with frontend build in Flask directory
-
-- used `fly deploy` to deploy
+  - _Note: Be sure to have Docker running locally during the deployment process_
