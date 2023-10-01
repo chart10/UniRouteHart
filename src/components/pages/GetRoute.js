@@ -104,7 +104,7 @@ function GetRoute() {
   return (
     <div className='routeForms-overlay'>
       <div className='fieldWrapper-box'>
-      <h2>FIND A ROUTE</h2>
+        <h2>FIND A ROUTE</h2>
         <label htmlFor='from'>Origin </label>
         <input
           type='text'
@@ -142,8 +142,7 @@ function GetRoute() {
             )}
           </div>
         )}
-      
-      <div className='fieldWrapper'>
+
         <label htmlFor='dest'>Destination </label>
         <input
           type='text'
@@ -181,26 +180,25 @@ function GetRoute() {
             )}
           </div>
         )}
-      </div>
-      {/* TODO: Create Departure/Arrival Time input fields */}
-      <label htmlFor='depart'>Departure Time </label>
-      <input type='time' id='depart' onChange={onDepartureTimeChange}></input>
-      <label htmlFor='arrive'>Arrival Time </label>
-      <input type='time' id='arrive' onChange={onArrivalTimeChange}></input>
-      <b>Select type of Commute </b>
-      <select id='mode' value={travelMode} onChange={onTravelModeChange}>
-        <option value='DRIVING'>Driving</option>
-        <option value='WALKING'>Walking</option>
-        <option value='BICYCLING'>Bicycling</option>
-        <option value='TRANSIT' selected>
-          Transit
-        </option>
-      </select>
-      <input
-        type='button'
-        value='Get Route'
-        onClick={onSubmitDirections}
-      ></input>
+        {/* TODO: Create Departure/Arrival Time input fields */}
+        <label htmlFor='depart'>Departure Time </label>
+        <input type='time' id='depart' onChange={onDepartureTimeChange}></input>
+        <label htmlFor='arrive'>Arrival Time </label>
+        <input type='time' id='arrive' onChange={onArrivalTimeChange}></input>
+        <b>Select type of Commute </b>
+        <select id='mode' value={travelMode} onChange={onTravelModeChange}>
+          <option value='DRIVING'>Driving</option>
+          <option value='WALKING'>Walking</option>
+          <option value='BICYCLING'>Bicycling</option>
+          <option value='TRANSIT' selected>
+            Transit
+          </option>
+        </select>
+        <input
+          type='button'
+          value='Get Route'
+          onClick={onSubmitDirections}
+        ></input>
       </div>
     </div>
   );
