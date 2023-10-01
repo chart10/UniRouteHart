@@ -25,7 +25,7 @@ function Login() {
       .then((response) => {
         // adds the login token authentication to the local storage
         setToken(response.data.access_token);
-        navigate('/Profile');
+        navigate('/profile');
       })
       .catch((error) => {
         if (error.response) {
@@ -59,34 +59,36 @@ function Login() {
 
   // render the login form if the user is not logged in
   return (
-    <div class="login-overlay">
-      <div class="login-box">
-       <span className="close-button" onClick={closeComp}> &times;</span>
-      <h2>Login</h2>
-      <p>Please Enter Your Username & Password</p>
-      <form class="login-form">
-        <label for="username-input">Username</label>
-        <input
-          onChange={handleChange}
-          type='username'
-          name='username'
-          placeholder='Username'
-          value={loginForm.username}
-        />
-        <label for="password-input">Password</label>
-        <input
-          onChange={handleChange}
-          type='password'
-          name='password'
-          placeholder='Password'
-          value={loginForm.password}
-        />
-        <button onClick={logMeIn}>Submit</button>
-      </form>
-      {errorMessage && <p className='error'> {errorMessage} </p>}
+    <div class='login-overlay'>
+      <div class='login-box'>
+        <span className='close-button' onClick={closeComp}>
+          {' '}
+          &times;
+        </span>
+        <h2>Login</h2>
+        <p>Please Enter Your Username & Password</p>
+        <form class='login-form'>
+          <label for='username-input'>Username</label>
+          <input
+            onChange={handleChange}
+            type='username'
+            name='username'
+            placeholder='Username'
+            value={loginForm.username}
+          />
+          <label for='password-input'>Password</label>
+          <input
+            onChange={handleChange}
+            type='password'
+            name='password'
+            placeholder='Password'
+            value={loginForm.password}
+          />
+          <button onClick={logMeIn}>Submit</button>
+        </form>
+        {errorMessage && <p className='error'> {errorMessage} </p>}
+      </div>
     </div>
-</div>
-
   );
 }
 
